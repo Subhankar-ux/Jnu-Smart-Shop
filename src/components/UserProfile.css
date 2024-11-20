@@ -1,0 +1,29 @@
+  .user-profile {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #007bff; /* Border to match other components */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center; /* Center text alignment for clean layout */
+  }
+  
+  .user-profile h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .user-profile p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  /* Message for non-logged-in users */
+  .user-profile-message {
+    color: #ff0000; /* Red to indicate warning or attention */
+    font-weight: bold;
+    text-align: center;
+  }  
