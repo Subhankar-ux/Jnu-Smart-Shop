@@ -10,6 +10,9 @@ import Login from './components/Login';
 import Register from './components/Register';
 import OrderTracking from './components/OrderTracking';
 import UserProfile from './components/UserProfile';
+// import Dashboard from './components/Dashboard';
+import UserDashboard from './components/UserDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';  // Correct import
 import './index.css';  // Global styles
 
@@ -28,6 +31,7 @@ function App() {
             <Route path="/register" element={<Register/>} />
             <Route path="/order-tracking" element={<OrderTracking/>} />
             <Route path="/profile" element={<UserProfile/>} />
+            <Route path="/Dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>}/>
           </Routes>
         </div>
         

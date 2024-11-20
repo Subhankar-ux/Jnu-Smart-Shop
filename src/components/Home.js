@@ -15,6 +15,7 @@ const Home = () => {
             <li><a href="/ProductList">Products</a></li>
             <li><a href="/cart">Cart</a></li>
             <li><a href="/profile">Profile</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
             <li> <a href="/register" className="register-link">Register</a></li>
           </ul>
         </nav>

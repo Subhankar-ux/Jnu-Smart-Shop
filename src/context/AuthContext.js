@@ -1,50 +1,68 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';  // Import useState, useContext, useEffect from React
-import { login, logout } from '../services/authService';  // Import functions from authService
-import { useNavigate } from 'react-router-dom';  // Import useNavigate for redirecting
+import React, { createContext, useState, useContext, useEffect } from 'react'; // Import necessary hooks from React
+import { login, logout } from '../services/authService'; // Import login and logout functions from authService
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
+// Create Auth Context
 const AuthContext = createContext();
 
-// Custom hook to use auth context
+// Custom hook to use Auth Context
 export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-// AuthProvider component
+// AuthProvider Component
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);  // Define state at the top level
-  const [error, setError] = useState(null);  // Define error state here as well
-  const navigate = useNavigate();  // Initialize navigate for redirecting
+  const [user, setUser] = useState(null); // User state
+  const [error, setError] = useState(null); // Error state for login failures
+  const [loading, setLoading] = useState(true); // Loading state for initial authentication check
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
-  // Check if the user is authenticated by checking for token in localStorage
+  // Check authentication status on initial load
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
       const storedUser = JSON.parse(localStorage.getItem('user'));
       setUser(storedUser);
     }
+    setLoading(false); // Mark loading as complete
   }, []);
 
+  // Handle Login
   const handleLogin = async (email, password) => {
+    setError(null); // Clear previous errors
     try {
-      const loggedInUser = await login(email, password);  // Use the login function from authService
-      setUser(loggedInUser);  // Update the state with logged-in user data
-      localStorage.setItem('user', JSON.stringify(loggedInUser));  // Optionally save user data in localStorage
-      navigate('/dashboard');  // Redirect user to dashboard after login
+      const loggedInUser = await login(email, password); // Call login service
+      setUser(loggedInUser); // Update user state
+      localStorage.setItem('authToken', loggedInUser.token); // Save token in localStorage
+      localStorage.setItem('user', JSON.stringify(loggedInUser)); // Save user data in localStorage
+      navigate('/dashboard'); // Navigate to dashboard
     } catch (err) {
-      setError('Login failed. Please try again.');  // Set error message in case of failure
+      setError('Invalid credentials. Please try again.'); // Set error message
       console.error(err);
     }
   };
-  
+
+  // Handle Logout
   const handleLogout = () => {
-    logout();  // Call logout function from authService
-    setUser(null);  // Clear user data from state
-    navigate('/login');  // Redirect user to login page after logout
+    logout(); // Call logout service
+    setUser(null); // Clear user state
+    localStorage.removeItem('authToken'); // Remove token from localStorage
+    localStorage.removeItem('user'); // Remove user data from localStorage
+    navigate('/login'); // Navigate to login page
+  };
+
+  // Auth Context value
+  const value = {
+    user,
+    error,
+    loading,
+    handleLogin,
+    handleLogout,
   };
 
   return (
-    <AuthContext.Provider value={{ user, error, handleLogin, handleLogout }}>
-      {children}
+    <AuthContext.Provider value={value}>
+      {!loading && children} {/* Render children only after loading is complete */}
     </AuthContext.Provider>
   );
 };

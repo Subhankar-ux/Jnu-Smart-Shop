@@ -1,29 +1,62 @@
-  .user-profile {
-    max-width: 400px;
-    width: 100%;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 2px solid #007bff; /* Border to match other components */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    box-sizing: border-box;
-    text-align: center; /* Center text alignment for clean layout */
-  }
-  
-  .user-profile h2 {
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .user-profile p {
-    font-size: 16px;
-    margin: 10px 0;
-    color: #555;
-  }
-  
-  /* Message for non-logged-in users */
-  .user-profile-message {
-    color: #ff0000; /* Red to indicate warning or attention */
-    font-weight: bold;
-    text-align: center;
-  }  
+.profile-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.profile-card {
+  text-align: left;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+.profile-card p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.profile-card p strong {
+  color: #333;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.profile-actions a {
+  text-decoration: none;
+  color: white;
+  background: #007BFF;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.profile-actions a:hover {
+  background: #0056b3;
+}
+
+.btn-edit-profile {
+  background: #28a745;
+}
+
+.btn-edit-profile:hover {
+  background: #218838;
+}
